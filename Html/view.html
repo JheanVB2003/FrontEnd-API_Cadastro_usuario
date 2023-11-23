@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Mostrar Cadastros</title>
+</head>
+<body>
+    <h1>Usuários Cadastrados</h1>
+
+    <ul id="cadastros-lista"></ul>
+
+    <script >
+        function carregarCadastros() {
+    fetch('http://localhost:8080/usuarios')
+        .then(response => response.json())
+        .then(data => {
+            const lista = document.getElementById('cadastros-lista');
+            lista.innerHTML = '';
+
+            data.forEach(cadastro => {
+                const item = document.createElement('li');
+                item.textContent = `ID: ${cadastro.id}, Nome: ${cadastro.nome}, Email: ${cadastro.email}`;
+                lista.appendChild(item);
+            });
+        })
+        .catch(error => console.error('Erro ao carregar cadastros:', error));
+}
+
+window.onload = carregarCadastros;
+    </script>
+</body>
+</html>
